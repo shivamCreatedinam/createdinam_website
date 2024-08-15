@@ -1,13 +1,17 @@
 .projects_wrapper {
     position: relative;
-    padding: 10px;
-    background-color: #fec626;
-    border-radius: 10px;
+    padding: 4px;
+    background-color: #ffff;
+    /* border-radius: 10px; */
     color: #fff;
     width: 450px;
     margin-bottom: 1rem;
     overflow: hidden;
-    text-align: center;
+   place-content: center;
+   place-items: center;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
 }
 
 .projects_wrapper::before {
@@ -15,25 +19,41 @@
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 10px;
+    width: 100%;
+    /* border-radius: 10px; */
+    background-image: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
+    height: 130%;
     border: 2px solid transparent;
-    background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0), rgba(255,255,255,0.5));
-    background-size: 200% 200%;
-    animation: glowing-border 2s linear infinite;
+    /* background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0), rgba(255,255,255,0.5)); */
+    /* background-size: 200% 200%; */
+    animation: rotBGimg 3s linear infinite;
+    transition: all 0.2s linear;
 }
 
-@keyframes glowing-border {
+/* @keyframes glowing-border {
     0% {
         background-position: 0% 50%;
     }
     100% {
         background-position: 100% 50%;
     }
+} */
+
+@keyframes rotBGimg {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-
+.projects_wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border-radius: 15px;
+}
 
 
   .progress-container {
@@ -47,7 +67,7 @@
   }
   .progress-bar {
     height: 100%;
-    background: #fec626;
+    background: #e06e11;
     width: 0%;
   }
 
@@ -91,10 +111,10 @@
     background-color: #fff;
     /* border-radius: 10px; */
     transition: left 0.5s ease;
-    border-top: 1px solid black;
+    /* border-top: 1px solid black;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
-    border-right: 2px dotted black; 
+    border-right: 2px dotted black;  */
 }
 
 .testimonial-card.active {

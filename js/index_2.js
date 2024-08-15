@@ -6,13 +6,10 @@ document.addEventListener('scroll', function() {
     
     progressBar.style.width = scrollPercent + '%';
   });
-
   document.addEventListener('DOMContentLoaded', function () {
     const cards = document.querySelectorAll('.testimonial-card');
     const dotsContainer = document.querySelector('.testimonial-dots');
     let currentIndex = 0;
-    let startX = 0;
-    let endX = 0;
     let autoSlideInterval;
 
     // Create dots dynamically
@@ -55,49 +52,34 @@ document.addEventListener('scroll', function() {
         showCard(currentIndex);
     }
 
-    document.querySelector('.next-button').addEventListener('click', nextCard);
-    document.querySelector('.prev-button').addEventListener('click', prevCard);
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(nextCard, 3000); // Adjust the interval as needed
+    }
+
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+    }
+
+    document.querySelector('.next-button').addEventListener('click', () => {
+        nextCard();
+        resetAutoSlide();
+    });
+
+    document.querySelector('.prev-button').addEventListener('click', () => {
+        prevCard();
+        resetAutoSlide();
+    });
 
     dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => goToCard(index));
-    });
-
-    // Touch event listeners for swipe
-    cards.forEach(card => {
-        card.addEventListener('touchstart', (event) => {
-            startX = event.touches[0].clientX;
-            stopAutoSlide(); // Stop auto-slide when interacting with the slider
-        });
-
-        card.addEventListener('touchmove', (event) => {
-            endX = event.touches[0].clientX;
-        });
-
-        card.addEventListener('touchend', () => {
-            if (startX > endX + 50) { // Swipe left
-                nextCard();
-            } else if (startX < endX - 50) { // Swipe right
-                prevCard();
-            }
-            startAutoSlide(); // Resume auto-slide after interaction
+        dot.addEventListener('click', () => {
+            goToCard(index);
+            resetAutoSlide();
         });
     });
 
-    // Auto-slide functionality
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(nextCard, 3000); // Slide every 3 seconds
-    }
-
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-    }
-
-    // Start auto-slide on load
+    // Start auto sliding
     startAutoSlide();
-
-    // Pause auto-slide on mouse hover
-    document.querySelector('.testimonial-slider').addEventListener('mouseenter', stopAutoSlide);
-    document.querySelector('.testimonial-slider').addEventListener('mouseleave', startAutoSlide);
 
     showCard(currentIndex);
 });
